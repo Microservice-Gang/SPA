@@ -2,7 +2,6 @@ package com.micro.ege.offer.offermicro.api;
 
 
 import com.micro.ege.offer.offermicro.service.OfferService;
-import com.micro.ege.offer.offermicro.service.OfferServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -10,10 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.mapstruct.factory.Mappers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Tag(name = "Service Offer Microservice")
@@ -40,7 +36,7 @@ public class OfferController {
 
     @Operation(summary = "Update Offer",description = "Update Offer")
     @ApiResponse(responseCode = "200", description = "Update Offer Response")
-    @PostMapping(path = "/update")
+    @PutMapping(path = "/update")
     public ResponseEntity<UpdateOfferResponse> updateOffer(
             @Parameter(description = "Request object for update",required = true)
             @RequestBody UpdateOfferRequest updateOfferRequest) {
@@ -51,7 +47,7 @@ public class OfferController {
 
     @Operation(summary = "Delete Offer",description = "Delete Offer")
     @ApiResponse(responseCode = "200", description = "Delete Offer Response")
-    @PostMapping(path = "/delete")
+    @DeleteMapping(path = "/delete")
     public ResponseEntity<DeleteOfferResponse> deleteOffer(
             @Parameter(description = "Request object for delete",required = true)
             @RequestBody DeleteOfferRequest deleteOfferRequest) {
@@ -62,7 +58,7 @@ public class OfferController {
 
     @Operation(summary = "List Offer",description = "List Offer")
     @ApiResponse(responseCode = "200", description = "List Offer Response")
-    @PostMapping(path = "/list")
+    @GetMapping(path = "/list")
     public ResponseEntity<ListOfferResponse> listOffer(
             @Parameter(description = "Request object for list",required = true)
             @RequestBody ListOfferRequest listOfferRequest) {
@@ -70,5 +66,4 @@ public class OfferController {
                 offerService.listOffer(offerMapper.mapApiRequestToServiceInput(
                         listOfferRequest))), HttpStatus.OK);
     }
-
 }

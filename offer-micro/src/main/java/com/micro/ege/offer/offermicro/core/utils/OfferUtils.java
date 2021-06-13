@@ -12,4 +12,24 @@ public class OfferUtils {
                 .format(calendar.getTime()).substring(0,8);
         return "O" + year + String.format("%03d", dayofYear) + time;
     }
+    public static Boolean checkServiceStatusChange(Short before, Short after) {
+        if(before.equals(after)) {
+            return true;
+        }
+        else if(before.equals(OfferStatus.SEND.getStatcode()) && after.equals(OfferStatus.ACCEPTED.getStatcode())) {
+            return true;
+        }
+        else if(before.equals(OfferStatus.SEND.getStatcode()) && after.equals(OfferStatus.CANCELED.getStatcode())) {
+            return true;
+        }
+        else if(before.equals(OfferStatus.SEND.getStatcode()) && after.equals(OfferStatus.REJECTED.getStatcode())) {
+            return true;
+        }
+        else if(before.equals(OfferStatus.ACCEPTED.getStatcode()) && after.equals(OfferStatus.DONE.getStatcode())) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }

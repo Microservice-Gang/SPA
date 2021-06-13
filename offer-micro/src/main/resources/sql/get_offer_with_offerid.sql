@@ -4,4 +4,5 @@ SELECT "OFFER_ID" AS offerID,
        "FREE_TEXT" AS freeText,
        "SERVICE_STATUS" AS serviceStatus,
        "OFFER_TIME" AS offerTime
-FROM public."OFFER"
+FROM "OFFER"
+WHERE "OFFER_ID" = :offerId

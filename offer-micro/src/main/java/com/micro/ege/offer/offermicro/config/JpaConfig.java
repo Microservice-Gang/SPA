@@ -14,7 +14,7 @@ public class JpaConfig {
     {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName("org.postgresql.Driver");
-        dataSourceBuilder.url("jdbc:postgresql://localhost:5432/postgres");
+        dataSourceBuilder.url("jdbc:postgresql://localhost:5432/spa");
         dataSourceBuilder.username("postgres");
         dataSourceBuilder.password("1597538624");
         return dataSourceBuilder.build();

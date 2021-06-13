@@ -1,20 +1,20 @@
 package com.micro.ege.offer.offermicro.core.utils;
 
 public enum OfferStatus {
-    SEND(1),
-    ACCEPTED(2),
-    REJECTED(3),
-    DONE(4),
-    CANCELED(5),
+    SEND((short) 1),
+    ACCEPTED((short)2),
+    REJECTED((short)3),
+    DONE((short)4),
+    CANCELED((short)5),
     ;
 
-    private int statcode;
+    private short statcode;
 
-    OfferStatus(int i) {
+    OfferStatus(short i) {
         this.statcode = i;
     }
 
-    public int getStatcode() {
+    public short getStatcode() {
         return statcode;
     }
 
