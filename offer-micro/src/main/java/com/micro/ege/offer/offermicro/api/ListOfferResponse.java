@@ -10,6 +10,13 @@ import java.util.List;
 
 @Data
 public class ListOfferResponse {
+
     @Schema(description = "Offer Details List", required = true)
     private List<OfferDetails> offerDetailsList;
+
+    @Schema(description = "Error Code", example = "11545L", required = true)
+    private Long errorCode;
+
+    @Schema(description = "Error Message", example = "This time range can not select", required = true)
+    private String errorMessage;
 }

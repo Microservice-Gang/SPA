@@ -1,0 +1,2 @@
+DELETE FROM public."OFFER"
+WHERE "OFFER_ID" = :offerId;
