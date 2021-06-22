@@ -1,0 +1,12 @@
+server:
+  port : 8120
+spring:
+  application:
+    name : offer-micro
+  devtools:
+    restart:
+      enabled : true
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8010/eureka/
