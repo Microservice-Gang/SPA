@@ -1,0 +1,8 @@
+server:
+  port : 8130
+spring:
+  application:
+    name : advert-service
+  devtools:
+    restart:
+      enabled : false

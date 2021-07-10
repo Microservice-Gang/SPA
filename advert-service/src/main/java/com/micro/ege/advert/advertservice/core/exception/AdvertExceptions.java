@@ -16,4 +16,7 @@ public class AdvertExceptions {
 
     public static ExceptionData BAD_LIST_ADVERT_REQUEST = new ExceptionData(5L,
             "Gönderilen istek listeleme işlemi için uygun değildir.");
+
+    public static ExceptionData MIN_PRICE_IS_NOT_LOWER_THAN_ZERO = new ExceptionData(6L,
+            "Gönderilen istek listeleme işlemi için uygun değildir.");
 }

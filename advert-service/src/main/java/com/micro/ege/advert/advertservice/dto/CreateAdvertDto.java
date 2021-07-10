@@ -6,10 +6,8 @@ import lombok.Data;
 public class CreateAdvertDto {
     private String advertName;
     private String serviceProviderID;
-    private String advertID;
     private String summary;
     private Integer minPrice;
-    private Short serviceStatus;
     private Integer advertCreateTime;
     private String category;
     private String city;

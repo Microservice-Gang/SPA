@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @Tag(name = "Service Advert Microservice")
 @RequestMapping("/api/advert")
@@ -25,6 +27,7 @@ public class AdvertController {
     @ApiResponse(responseCode = "201", description = "Create Advert Response")
     @PostMapping(path = "/create")
     public ResponseEntity<CreateAdvertResponse> createAdvert(
+            @Valid
             @Parameter(description = "Request object for create",required = true)
             @RequestBody CreateAdvertRequest createAdvertRequest) {
         return new ResponseEntity<>(advertMapper.mapServiceOutputToApiResponse(

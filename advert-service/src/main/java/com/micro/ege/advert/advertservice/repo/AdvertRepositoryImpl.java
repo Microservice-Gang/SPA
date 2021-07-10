@@ -70,11 +70,11 @@ public class AdvertRepositoryImpl implements AdvertRepository{
     @Override
     public ServiceAdvertDto getAdvertWithAdvertId(String advertId) {
         try{
-            final String getOffer = StreamUtils.copyToString(
+            final String getAdvert = StreamUtils.copyToString(
                     getAdvertWithAdvertIdResource.getInputStream(), Charset.defaultCharset());
             SqlParameterSource parameterSource = new MapSqlParameterSource()
                     .addValue("advertId", advertId, Types.VARCHAR);
-            return namedParameterJdbcTemplate.queryForObject(getOffer,
+            return namedParameterJdbcTemplate.queryForObject(getAdvert,
                     parameterSource,SERVICE_ADVERT_DTO_BEAN_PROPERTY_ROW_MAPPER);
         } catch (IOException | EmptyResultDataAccessException e) {
             e.printStackTrace();
@@ -83,13 +83,12 @@ public class AdvertRepositoryImpl implements AdvertRepository{
     }
 
     @Override
-    public ServiceAdvertDto getAdvertWithProviderId(String serviceProviderID, short serviceStatus) {
+    public ServiceAdvertDto getAdvertWithProviderId(String serviceProviderID) {
         try{
             final String getAdvertWithProviderId = StreamUtils.copyToString(
                     getAdvertWithProviderIdResource.getInputStream(), Charset.defaultCharset());
             SqlParameterSource parameterSource = new MapSqlParameterSource()
-                    .addValue("serviceProviderID", serviceProviderID, Types.VARCHAR)
-                    .addValue("serviceStatus", serviceStatus, Types.SMALLINT);
+                    .addValue("serviceProviderID", serviceProviderID, Types.VARCHAR);
             return namedParameterJdbcTemplate.queryForObject(getAdvertWithProviderId,
                     parameterSource,SERVICE_ADVERT_DTO_BEAN_PROPERTY_ROW_MAPPER);
         } catch (IOException | EmptyResultDataAccessException e) {
@@ -116,12 +115,11 @@ public class AdvertRepositoryImpl implements AdvertRepository{
     }
 
     @Override
-    public List<AdvertDetailsDto> listAdvertWithAdvertAndStat(String advertID, Short serviceStatus) {
+    public List<AdvertDetailsDto> listAdvertWithAdvertAndStat(String advertID) {
         try{
             final String  listAdvertProviderStat = StreamUtils.copyToString(
                     listAdvertAdvertStatResource.getInputStream(), Charset.defaultCharset());
             SqlParameterSource parameterSource = new MapSqlParameterSource()
-                    .addValue("serviceStatus", serviceStatus, Types.SMALLINT)
                     .addValue("advertID", advertID, Types.VARCHAR);
             return namedParameterJdbcTemplate.query(listAdvertProviderStat,
                     parameterSource,ADVERT_DETAILS_BEAN_PROPERTY_ROW_MAPPER);
@@ -147,12 +145,11 @@ public class AdvertRepositoryImpl implements AdvertRepository{
     }
 
     @Override
-    public List<AdvertDetailsDto> listAdvertWithProviderAndStat(String serviceProviderID, Short serviceStatus) {
+    public List<AdvertDetailsDto> listAdvertWithProviderAndStat(String serviceProviderID) {
         try{
             final String  listAdvertProviderStat = StreamUtils.copyToString(
                     listAdvertProviderStatResource.getInputStream(), Charset.defaultCharset());
             SqlParameterSource parameterSource = new MapSqlParameterSource()
-                    .addValue("serviceStatus", serviceStatus, Types.SMALLINT)
                     .addValue("providerId", serviceProviderID, Types.VARCHAR);
             return namedParameterJdbcTemplate.query(listAdvertProviderStat,
                     parameterSource,ADVERT_DETAILS_BEAN_PROPERTY_ROW_MAPPER);
@@ -171,9 +168,10 @@ public class AdvertRepositoryImpl implements AdvertRepository{
             SqlParameterSource parameterSource = new MapSqlParameterSource()
                     .addValue("advertID", AdvertUtils.generateAdvertID(), Types.VARCHAR)
                     .addValue("serviceProviderID", createAdvertDto.getServiceProviderID(), Types.VARCHAR)
-                    .addValue("advertID", createAdvertDto.getAdvertID(), Types.VARCHAR)
+                    .addValue("advertName", createAdvertDto.getAdvertName(), Types.VARCHAR)
                     .addValue("summary", createAdvertDto.getSummary(), Types.VARCHAR)
-                    .addValue("serviceStatus", createAdvertDto.getServiceStatus(), Types.SMALLINT)
+                    .addValue("category", createAdvertDto.getCategory(), Types.VARCHAR)
+                    .addValue("city", createAdvertDto.getCity(), Types.VARCHAR)
                     .addValue("advertTime", createAdvertDto.getAdvertCreateTime(), Types.INTEGER)
                     .addValue("minPrice", createAdvertDto.getMinPrice(), Types.INTEGER);
 
@@ -186,7 +184,7 @@ public class AdvertRepositoryImpl implements AdvertRepository{
     }
 
     @Override
-    public Boolean updateAdvert(String advertName, String advertId, String summary, Short serviceStatus, Integer createdAdvertTime, Integer minPrice, String category, String city) {
+    public Boolean updateAdvert(String advertName, String advertId, String summary,Integer createdAdvertTime, Integer minPrice, String category, String city) {
         try {
             final String updateAdvert;
             updateAdvert = StreamUtils.copyToString(
@@ -196,7 +194,6 @@ public class AdvertRepositoryImpl implements AdvertRepository{
                     .addValue("offerName", advertName, Types.VARCHAR)
                     .addValue("offerId", advertId, Types.VARCHAR)
                     .addValue("summary", summary, Types.VARCHAR)
-                    .addValue("serviceStatus", serviceStatus, Types.SMALLINT)
                     .addValue("advertTime", createdAdvertTime, Types.INTEGER)
                     .addValue("minPrice", minPrice, Types.INTEGER)
                     .addValue("category", category, Types.VARCHAR)
@@ -291,15 +288,14 @@ public class AdvertRepositoryImpl implements AdvertRepository{
 
 
     @Override
-    public List<AdvertDetailsDto> listAdvert(String providerId, String advertId, Integer minPrice, short serviceStatus) {
+    public List<AdvertDetailsDto> listAdvert(String providerId, String advertId, Integer minPrice) {
         try{
             final String  listAdvert = StreamUtils.copyToString(
                     listAdvertResource.getInputStream(), Charset.defaultCharset());
             SqlParameterSource parameterSource = new MapSqlParameterSource()
                     .addValue("minPrice", minPrice, Types.INTEGER)
                     .addValue("advertId", advertId, Types.VARCHAR)
-                    .addValue("providerId", providerId, Types.VARCHAR)
-                    .addValue("serviceStatus", serviceStatus, Types.SMALLINT);
+                    .addValue("providerId", providerId, Types.VARCHAR);
             return namedParameterJdbcTemplate.query(listAdvert,
                     parameterSource,ADVERT_DETAILS_BEAN_PROPERTY_ROW_MAPPER);
         } catch (IOException | EmptyResultDataAccessException e) {

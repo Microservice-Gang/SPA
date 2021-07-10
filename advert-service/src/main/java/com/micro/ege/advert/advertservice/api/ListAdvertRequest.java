@@ -14,9 +14,6 @@ public class ListAdvertRequest {
     @Schema(description = "Advert ID", example = "12345678910", required = true)
     private String advertID;
 
-    @Schema(description = "Service Advert Status", example = "2", required = true)
-    private Short serviceStatus;
-
     @Schema(description = "Service Advert Price", example = "10", required = true)
     private Integer minPrice;
 

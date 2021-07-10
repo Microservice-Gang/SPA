@@ -25,23 +25,20 @@ public class AdvertServiceImpl implements AdvertService {
 
         CreateAdvertServiceOutput result = new CreateAdvertServiceOutput();
         try{
-            if (createAdvertServiceInput.getServiceStatus()<0 || createAdvertServiceInput.getServiceStatus()>6) {
-                throw new BusinessException(AdvertExceptions.ADVERT_STATUS_NOT_FOUND);
-            }
             ServiceAdvertDto existAdvert = AdvertRepository.getAdvertWithProviderIdAndTime(
                             createAdvertServiceInput.getServiceProviderID(),
                             createAdvertServiceInput.getAdvertCreateTime());
-            if (existAdvert != null) {
-                throw new BusinessException(AdvertExceptions.TIME_IS_FILLED_ALREADY);
+            if (createAdvertServiceInput.getMinPrice()<0) {
+                throw new BusinessException(AdvertExceptions.MIN_PRICE_IS_NOT_LOWER_THAN_ZERO);
             }
             CreateAdvertDto createAdvertDto = new CreateAdvertDto();
             createAdvertDto.setServiceProviderID(createAdvertServiceInput.getServiceProviderID());
-            createAdvertDto.setAdvertID(createAdvertServiceInput.getAdvertID());
+            createAdvertDto.setAdvertName(createAdvertServiceInput.getAdvertName());
             createAdvertDto.setSummary(createAdvertServiceInput.getSummary());
-            createAdvertDto.setServiceStatus(createAdvertServiceInput.getServiceStatus());
             createAdvertDto.setAdvertCreateTime(createAdvertServiceInput.getAdvertCreateTime());
             createAdvertDto.setCategory(createAdvertServiceInput.getCategory());
-            createAdvertDto.setCategory(createAdvertServiceInput.getCity());
+            createAdvertDto.setMinPrice(createAdvertServiceInput.getMinPrice());
+            createAdvertDto.setCity(createAdvertServiceInput.getCity());
 
             result.setIsSucceeded(AdvertRepository.createAdvert(createAdvertDto));
             result.setErrorCode(0L);
@@ -62,9 +59,6 @@ public class AdvertServiceImpl implements AdvertService {
 
         UpdateAdvertServiceOutput result = new UpdateAdvertServiceOutput();
         try{
-            if (updateAdvertServiceInput.getServiceStatus()<0 || updateAdvertServiceInput.getServiceStatus()>6) {
-                throw new BusinessException(AdvertExceptions.ADVERT_STATUS_NOT_FOUND);
-            }
 
             ServiceAdvertDto existAdvert = AdvertRepository
                     .getAdvertWithAdvertId(
@@ -86,7 +80,6 @@ public class AdvertServiceImpl implements AdvertService {
             Boolean success = AdvertRepository.updateAdvert(updateAdvertServiceInput.getAdvertName(),
                     updateAdvertServiceInput.getAdvertID(),
                     updateAdvertServiceInput.getSummary(),
-                    updateAdvertServiceInput.getServiceStatus(),
                     updateAdvertServiceInput.getAdvertCreateTime(),
                     updateAdvertServiceInput.getMinPrice(),
                     updateAdvertServiceInput.getCity(),
@@ -150,18 +143,16 @@ public class AdvertServiceImpl implements AdvertService {
                     && (listAdvertServiceInput.getMinPrice() != null)) {
                 AdvertDetailsList = AdvertRepository.listAdvert(listAdvertServiceInput.getServiceProviderID(),
                         listAdvertServiceInput.getAdvertID(),
-                        listAdvertServiceInput.getMinPrice(),
-                        listAdvertServiceInput.getServiceStatus());
+                        listAdvertServiceInput.getMinPrice());
 
             }else if ((listAdvertServiceInput.getAdvertID() != null)
                     && (listAdvertServiceInput.getServiceStatus() != null)) {
-                AdvertDetailsList = AdvertRepository.listAdvertWithAdvertAndStat(listAdvertServiceInput.getAdvertID(),
-                        listAdvertServiceInput.getServiceStatus());
+                AdvertDetailsList = AdvertRepository.listAdvertWithAdvertAndStat(listAdvertServiceInput.getAdvertID());
 
             }else if ((listAdvertServiceInput.getServiceProviderID() != null)
                     && (listAdvertServiceInput.getServiceStatus() != null)) {
                 AdvertDetailsList = AdvertRepository.listAdvertWithProviderAndStat(
-                        listAdvertServiceInput.getServiceProviderID(), listAdvertServiceInput.getServiceStatus());
+                        listAdvertServiceInput.getServiceProviderID());
 
 
             }else if (listAdvertServiceInput.getServiceProviderID() != null) {

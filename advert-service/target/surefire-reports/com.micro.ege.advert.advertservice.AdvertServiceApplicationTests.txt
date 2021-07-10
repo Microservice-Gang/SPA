@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.micro.ege.advert.advertservice.AdvertServiceApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 14.477 s - in com.micro.ege.advert.advertservice.AdvertServiceApplicationTests

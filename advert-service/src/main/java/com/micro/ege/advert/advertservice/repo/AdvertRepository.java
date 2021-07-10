@@ -10,11 +10,11 @@ import java.util.List;
 public interface AdvertRepository {
     ServiceAdvertDto getAdvertWithAdvertId(String AdvertID);
 
-    ServiceAdvertDto getAdvertWithProviderId(String serviceProviderID, short serviceStatus);
+    ServiceAdvertDto getAdvertWithProviderId(String serviceProviderID);
 
     Boolean createAdvert(CreateAdvertDto createAdvertDto);
 
-    Boolean updateAdvert(String AdvertName , String AdvertID, String Summary,Short serviceStatus, Integer advertCreateTime, Integer minPrice, String category, String city);
+    Boolean updateAdvert(String AdvertName , String AdvertID, String Summary,Integer advertCreateTime, Integer minPrice, String category, String city);
 
     Boolean deleteAdvert(String AdvertID);
 
@@ -27,15 +27,15 @@ public interface AdvertRepository {
 
     List<AdvertDetailsDto> listAdvertWithName(String advertName);
 
-    List<AdvertDetailsDto> listAdvert(String providerId, String advertId, Integer minPrice, short serviceStatus);
+    List<AdvertDetailsDto> listAdvert(String providerId, String advertId, Integer minPrice);
 
 
     ServiceAdvertDto getAdvertWithProviderIdAndTime(String serviceProviderID, Integer advertCreateTime);
 
-    List<AdvertDetailsDto> listAdvertWithAdvertAndStat(String advertID, Short serviceStatus);
+    List<AdvertDetailsDto> listAdvertWithAdvertAndStat(String advertID);
 
     List<AdvertDetailsDto> listAdvertWithPrice(Integer minPrice);
 
 
-    List<AdvertDetailsDto> listAdvertWithProviderAndStat(String serviceProviderID, Short serviceStatus);
+    List<AdvertDetailsDto> listAdvertWithProviderAndStat(String serviceProviderID);
 }
