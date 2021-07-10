@@ -10,7 +10,7 @@ public class AdvertUtils {
         String year = Integer.toString(calendar.get(Calendar.YEAR) % 10);
         String time = new SimpleDateFormat("HHmmssSS")
                 .format(calendar.getTime()).substring(0,8);
-        return "O" + year + String.format("%03d", dayofYear) + time;
+        return "A" + year + String.format("%03d", dayofYear) + time;
     }
     public static Boolean checkServiceStatusChange(Short before, Short after) {
         if(before.equals(after)) {

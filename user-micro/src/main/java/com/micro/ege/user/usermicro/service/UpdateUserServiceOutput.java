@@ -1,4 +1,4 @@
 package com.micro.ege.user.usermicro.service;
 
-public class GetUserServiceRequest {
+public class UpdateUserServiceOutput {
 }
