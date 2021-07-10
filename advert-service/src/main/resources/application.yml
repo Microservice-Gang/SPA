@@ -2,7 +2,11 @@ server:
   port : 8130
 spring:
   application:
-    name : advert-service
+    name : advert-micro
   devtools:
     restart:
-      enabled : false
+      enabled : true
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8010/eureka/
