@@ -17,8 +17,9 @@ import java.sql.Types;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository{
-    @Value("classpath:sql/create_user.sql")
-    private Resource createUserResource;
+    String createUser = "INSERT INTO public.\"USER\"(\n" +
+            "    \"USER_ID\", \"NAME\", \"SURNAME\", \"MAIL\", \"CIPHER\")\n" +
+            "VALUES (:userId, :name, :surname, :mail, :pass);";
 
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -40,8 +41,6 @@ public class UserRepositoryImpl implements UserRepository{
     @Override
     public Boolean createUser(CreateUserDto createUserDto) {
         try{
-            final String createUser = StreamUtils.copyToString(
-                    createUserResource.getInputStream(), Charset.defaultCharset());
             SqlParameterSource parameterSource = new MapSqlParameterSource()
                     .addValue("userId", UserUtils.generateUserID(), Types.VARCHAR)
                     .addValue("name", createUserDto.getName(), Types.VARCHAR)
